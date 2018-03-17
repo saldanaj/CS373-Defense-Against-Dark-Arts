@@ -1,0 +1,98 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1561\cocoasubrtf200
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\margl1440\margr1440\vieww19640\viewh13600\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 Week 5 Notes \
+\
+Do some more research regarding Metasploit \
+- how would you use this\
+- does it have any sys internal pen testing usage \
+\
+We will be brushing up on the following OS and system fundamentals first \
+- user mode memory basics \
+- kernel memory basics \
+- hooking basics \
+\
+SHOULD TRY AND FIND OUT MORE INFORMATION ABOUT THIS ABOVE \
+\
+Rootkits are one of the best way to learn about kernel security challenges \
+- there are rootkits for all operating systems \
+\
+Rootkits help the malware and attacker stay hidden/stealthy much longer - we need to learn about this for Windows security \
+\
+64 bit operating system brought in alot of security - now there are security checks on the kernel code \
+\
+Challenges once malicious code enters kernel \
+- harder for rootkits to enter 64 bit kernel \
+- rootkits can infiltrate 64 bit OS kernel by \
+a) bypassing driver signing check (e.g. using testsigning mode) \
+b) modifying the windows boot path (Master Boot Record etc) - secure boot prevents this \
+c) kernel exploits in Windows kernel or third party drivers \
+d) stealing valid digisigs (similar to Stuxnet)  ******** THIS IS INTERESTING \
+\
+ See the slide between kernel vs user (differences in the mode) \
+- in USER mode, this is where the .EXE and .DLL files live \
+- in the kernel mode, this is where the .SYS files live - which are the extension of the files (most rootkits live here) \
+\
+ALL THESE FILES ARE PE files \
+\
+\
+Kernel Memory \
+- is a flat memory model w/ no security separation \
+- any kernel driver can access any part of memory \
+- composed of windows kernel (ntoskrnl.exe) as well as driver code - this is the kernel that get\'92s loaded at load time \
+- many important structures that are prime targets for stealth (SSDT, IRP, IDT, etc.) \
+- windbg commands: .process command, lm, !devobj, !drvobj, !devstack, !irp, etc. Virtual to physical memory etc. \
+\
+- find out more about CUCKOO *** what was it used for again \
+\
+- what files is this malware creating, what process is it running, and more (since this is rootkit, it is going to hide from these tools) \
+\
+- Hook means that when you need to go to point A to point B, and somebody is creating a detour and point A is not obtaining something from B or vice versa and the reason for that is because the bad actor is in the middle consuming something between the 2 points \
+\
+livekd - can help you see the code for the function of a process that is suspicious - the code is in assembly \
+\
+SSDT - system service descriptor table - find out how this can be manipulated by a rootkit ********************\
+\
+Threads - its the smallest unit of execution on the operating system that can execute code \
+- see the youtube video link to get a better description \
+\
+\
+There are a few important concepts of a thread \
+- thread context  \
+- thread stack \
+- thread environment block (TEB)\
+- thread scheduling \
+- thread - process relationship \
+\
+Thread Object defines a thread \
+- Kernel Object are data structure defined by OS to describe various OS constructs, thread being on such construct \
+- TEB, ThreatStack, Context, Priority, State etc are all defined within this struct \
+\
+Find out more information about \'93process HOOKING\'94 ******\
+\
+\
+\
+\
+\
+Stealth Techniques Examples \
+\
+techniques employed by various rootkits \
+- inline hooks \
+a) hackerdefender \
+b) zbot \
+- import table hooks \
+a) adcliker - BA \
+b) Qoolaid \
+- DKOM \
+a) TDSS \
+\
+\
+\
+FIND OUT MORE WHAT A SECURE BOOT IS *** \
+FIND OUT MORE ABOUT DIGITAL SIGNATURES *** \
+\
+}

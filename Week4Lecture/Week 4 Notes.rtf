@@ -1,0 +1,246 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1561\cocoasubrtf200
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\margl1440\margr1440\vieww22400\viewh13600\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 Week 4 Notes \
+\
+\
+Seesaw, hackathon \
+\
+Vulnearbility exploitation \
+\
+Most of the exploits are targeting the Window environment in the WinDBG \
+\
+hacking can be that your exposing a problem in code and thinking outside the box regarding what the developer did not think about \
+\
+hacking is about manipulating software \
+- finding \'93bugs\'94 which alter the behavior of the program \
+- taking advantage of a miscongfiguaration or poor programming practice.  This is another class of vulnerability \
+\
+5 to 8 years, attacks would start from the internet and would attack DMZ or internal network systems around the border\
+- most companies now have a hard outer perimeter, \
+\
+attacks now have shifted from attacking the perimeter to compromising the user through phishing and other social engineering methods \
+- this usually means trying to attack a user\'92s browser i.e. strategic web browsing/surfing attacks \
+- when rendering the website it triggers a condition in the browser which allows the attacker to gain control over the browser and computer to a certain extent **** (this is interesting since it\'92s not through a java script file or something like that) \
+\
+============\
+\
+\
+WinDBG - is a standard debugger (same as GDB) that let\'92s you examine a state in the program \
+- need a program to debug (FIND OUT MORE INFORMATION ABOUT THIS ****) \
+\
+Research Active X browser plugin exploits/vulnerability \
+\
+Windbg immediately sets a breakpoint once the executable is launched, it disassembles the program in assembly language.  \
+- it gives you the modules that are being loaded and their address \
+- output of the all the registers (eax, ebx, etc.) \
+- lm command to list modules \
+- lmf command lists all the modules and find modules that is matching a specifc string w/ a wildcard \
+\
+there\'92s a bar where you insert commands \
+\
+- you can set breakpoints, and the command is bp \
+- bl is the command to list all breakpoints \
+\
+- g is command to tell it to go \
+- gives you the status of all the registers when the breakpoint hits \
+\
+- dd is going to display a dword of memory, this can be used to see the bytes in a particular register \
+- db to view the actual bytes \
+\
+- u command is used to unassemble to bytes at addresses to assembly code \
+\
+- whenver you see a # in windbg the number is going to be in hex \
+\
+- .formats command can convert a hex value to a decimal value \
+\
+- dv command shows you the local variables that are currently on the stack \
+\
+- db command can shows us the byte and ascii representation which can give us a clue if theres any strings \
+\
+- da command is used for a specific value\
+\
+- du command is for unicode format (Windows tends to store strings in this format) \
+\
+- p is to stepover \
+\
+- g command w/ an address value is for a non persistent breakpoint \
+\
+- IDA Pro - this is a commercizlized version of the Windbg \
+\
+- while debugging the program may be unresponsive, example is ieexlplorer or chrome.exe \
+\
+- r command in windbg gives you the current values in the registers \
+\
+- also need to know about program memory - each program has memory regions most important is the stack and sometimes the heap \
+\
+- !teb (stack) and !peb (heap), !address are extended commands - what these do is that they give you different input for each.  teb gives you where the stack starts and beings and peb is (process heap) is important because is the type of heap being used \
+\
+- !address provides an address and tell you where it\'92s pointing to, and in what section its located such as the heap or stack, etc \
+\
+DIFFERENT VULNERABILITIES \
+\
+- memory corruption is the one we\'92re looking at but there are more vulnerabilities \
+\
+accessing memory in an invalid way which results in an undefined behavior, this is memory corruption.  Access of memory is either writing or reading, and invalid means unintended, and undefined is a state of the pc that wasn\'92t foreseen \
+\
+- common categories are lifetime controls, uninitialized memory, array index calculations, and buffer length calculations \
+\
+- exploitation is taking advantage of a vulnerability \
+\
+- we have to write or create an exploit, which is some input or data that will cause some condition \
+\
+- the exploit has what they call a vulnerability trigger - invokes the software bug to obtain control of the program in some way that is advantageous to you, the attacker \
+\
+- payload is the action to be performed when control is obtained \
+\
+- traditionally - a payload is something that\'92s called a \'93shell\'94 code which is usually assembly code to execute a shell (e.g. /bin/sh) because it gives you access to a shell in the unix system \
+\
+- executing calculator is a proof of concept that means you\'92ve succeeded in gaining shell privileges \
+\
+METASPLOIT (*** find out more about this ****) \
+- has a bunch of the vulnerability triggers and a bunch of payloads that you can use and combine it to do whatever you want \
+\
+\
+STACK \
+- stack is the state mechanism for a program, because the stack is used to store states within the programs \
+- if we want to view the call stack in windbg we use the k command, it gives us all of the stack information and it\'92s important for us since we may have to retrace the stack \
+\
+- the stack is subject to overflow (usually called the stack overflow) \
+\
+There\'92s a few thing we need to do before we have our code executed which is \
+\
+1.Crash Triage - do we understand how we can replicate this crash, and sometimes in more than one way.  Ask what do we control and where are we in the execution of the program.  \
+2. Determine the return address offset, so we can override EIP and tell it where to start execution w/ the return address on the stack \
+3. Position our shellcode -  this is when we override the buffer with random strings up to our offset and until the return address.  Then in the stack where the return address is stored we write the address where our shell code being and where we want EIP to point to next when we pop the stack. \
+4. How do we find the address of our shell code in memory - we want our shell code to live on the stack \
+- we use a technique called the trampoline, we use a JMP ESP instruction, which is a cardinal sin but for exploits its common \
+\
+\
+A GOOD THING TO RESEARCH IS FIND OUT WHAT ARE SOME METHODS MODERN OS ARE USING TO AVOID STACK OVERRIDING, AT LEAST LINEAR STACK OVERRIDING \
+These are also known as stack smashing protection - one example is the stack canary/cookie \
+\
+These are the answers to lab discussed during the lecture \
+LESSON 1 \
+\
+- commands used while using WinDBG\
+- always go to the last iexplorer.exe launched \
+- what is the load address of the exploit module? The best way is use LM or LMF, or scroll up in WinDBG which has the addresses to all the modules at the top \
+- how large is the stack? we\'92re talking about ALL of the space for the entire stack - !TEB is the best command which is the stackbase and stacklimit which shows the limit of the entire stack and use the math built in to winDBG to provide you the stack size \
+- breakpoints are called for the active threads - which remember we can have different threads and therefore different stack addresses and for base and limit \
+- whats the starting thread for hte process heap? !PEB is the best command for this since it\'92s for the process.  Scroll up and you\'92ll find the Process Heap starting address \
+- Whats the value of EIP? EIP is where you put the breakpoint (duh!) or you can also use the command r or r eip \
+- how much space are making on the stack? how we can do that? is run the commmand u eip L10 \'85. and see the subtraction of some value on ESP in assembly (i.e. sub esp, 14h) meaning that\'92s how much size were allocating for the local variables\
+- every number we see in WinDBG is almost always a hexadecimal value \
+- next we were supposed to run the command t 5 , which means t is that we want to step into and 5 is the number of times we want to step into - \
+- what is the string value that is pointing to?  that\'92s b/c it\'92s an address - we can do dd esp which is the dword on the top of the stack, when we get that address with the dd esp command, we can do a dd [address] to see the strings that start at this address.  All we\'92re going to see is hex values, as a result a more effective command to run is du poi(esp) since the text is in UNICODE \
+- execute 11 instructions with p b (b being 11 the number of steps were going to execute) \
+- .formats is the command we can use to interpret a hex value.  When run, it gives us the hex, decimal, octal, binary  and other values \
+- where is the value pointed to by ESI?  is it on the stack or the heap?  How do you determine that?  You use the built in command, and it\'92s !address esi which will tell you were esi is (either stack, heap, or wherever) \
+\
+\
+USE-AFTER-FREE vulnerability \
+- this targets the heap \
+- it\'92s used more for dynamic memory (the heap) \
+\
+the core of exploiting a use-after-free vulnerability are the following steps: \
+1. free the object \
+2. replace the object with ours \
+- figure out the size \
+- make allocations of the same size \
+3. position our shell code \
+4. use the object again  \
+\
+use after free vulnerability is when you allocate some memory, free the memory,  and then use the memory again.  But this can be exploitable, this is especially true for browsers \
+\
+The heap has a bunch of different layers, and in Windows especially it can be abstracted \
+\
+Microsofts C library, when calling the NEW operator it could call a couple of different heaps.  The NEW operation in specific calls the MALLOC(), and then Windows has more \
+\
+Windows uses a front end allocator - only used to allocate for objects for small sizes but sometimes it\'92s not available.  Available in Windows 7 or greater \
+\
+back end allocator - is called by the front end allocator\
+\
+And they both call the virtual allocation memory manager.  (see slide on page 21) \
+\
+Now depending on what size you request, then it decides what allocator to use \
+\
+For anything that is < 16KB it\'92s going to call the Front End Allocator \
+\
+For anything that\'92s between 16KB and 512KB it\'92s going to call the back end allocator or if front end allocator is inactive\
+\
+Anything > 512KB is going to call the VirtualAlloc (virtual allocator) or if back end allocator is inactive \
+\
+1MB is automatically allocated in the heap when a process is called by the Windows C runtime library.  Internet Explorer calls this same library and as a result, the same amount is allocated for a process.  it goes straight to Virtual Alloc which is going to return chunks of data that adds up to 1MB \
+\
+Low fragmentation heap - creates buckets for a specific size after the 18th allocation of that size.  it\'92s unique and started w/ Windows 7.  when you request a small size, but a certain number of requests for that size, then it creates a bucket of fragmented sizes that were requested.  But in this fragmented heap, there is no coalescing.  This is good for browser exploitation b/c that piece of memory in the bucket is a good candidate to place our payload\
+- Coalescing - that would take two blocks and make them one big block.  This is not good because for our exploit because that block of data that may have been free but was not merged w/ another is no longer a viable candidate to where we can put our code.  \
+\
+- we can dynamically create a string w/ JavaScript, then it creates a dynamic allocation in memory\
+- if we want to create a low fragmentation in the heap we just put the alloation in a loop \
+\
+\
+Code example of dynamic allocation \
+\
+class MyClass \{ \'85 \} \
+\
+void _tmain() \
+\{\
+\
+	MyClass *willFree = new MyClass(); \
+	MyClass *Copy = willFree; \
+	delete willFree; \
+	Copy ->MyFunc();    // more times than not, this will probably crash \
+\
+\} \
+\
+How do we exploit this to get code execution?  We don\'92t have any control with how the code functions since this is developer code, especially between the delete and call to the copy\'92s function \
+\
+But this is where JavaScript comes into play, it allows us to allocate/de-allocate on demand (we can invoke when it\'92s instantiated, when it\'92s being used, and when it\'92s being freed) we can control this w/ JavaScript \
+\
+Debugging \
+\
+- Windows has a excellent tool that\'92s going to help us w/ this exploit and that\'92s the page heap \
+Page Heap \
+- special debugging heap \
+enabled via gflags (elevated cmd prompt): \
+\
+\'93c:\\Program Files (x86)\\Windows Kits\\8.0\\Debuggers\\x86\\gflags.exe\'94 /i iexplore.exe +hpa +ust \
+\
+Flag \
+/i [image] = get/set flags for [image] \
+[+|-] hpa = enable/disable page heap \
+[+|-] ust enable/disable user-mode stack trace \
+\
+\
+- the line command above enables the page heap \
+- the page heap, it sets the spaces in the heap with a special value\
+\
+!heap command w/ -p means use the page heap and -a means use that address in which register\
+\
+we get the get stack trace of when and why that area in the heap was freed \
+\
+we need to know the size of the fragmentation in memory\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+}
