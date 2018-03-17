@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Joaquin Saldana - CS373 Weekly Writeup</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/blog-home.css" rel="stylesheet">
+
+  </head>
+
+  <body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="#">Joaquin Saldana / Winter 2018</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+
+        <!-- 
+
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="#">Home
+                <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Services</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Contact</a>
+            </li>
+          </ul>
+        </div>
+
+      -->
+
+
+      </div>
+    </nav>
+
+    <!-- Page Content -->
+    <div class="container">
+
+      <div class="row">
+
+        <!-- Blog Entries Column -->
+        <div class="col-md-8">
+
+          <h1 class="my-4">CS373 Weekly Writeups
+            <small></small>
+          </h1>
+
+          <!-- Blog Post -->
+          <div class="card mb-4">
+
+            <!--
+            <img class="card-img-top" src="http://placehold.it/750x300" alt="Card image cap">
+            --> 
+            <img class="card-img-top" src="images/meltdown-spectre-100745817-large.jpg" alt="Specture and Meltdown Image">
+            <div class="card-body">
+              <h2 class="card-title">Week 1</h2>
+              <p class="card-text">
+                  In the wake of the largely publicized disclosures of the Meltdown and, more serious, Spectre vulnerabilities, 
+                  it’s more important than ever for the common user to be educated on security.  As a student of computer science, 
+                  I feel it’s more important than ever to understand how a threat is detected, prevented, and analyzed.  
+
+              </p>
+              <p>
+                  Also important is understanding the bad actor and their intentions.  This week we covered the basics of malware.  This includes: 
+              </p>
+              <ul>
+                <li>Understanding the malware industry, past to present </li>
+                <li>Different variations of malware.  This includes viruses, adware, spyware, worms, ransomware and more.  </li>
+                <li>Infection vectors</li>
+                <li>Tools used by engineers to reverse engineer and analyze the malware statically and behaviorally.  </li>
+              </ul>
+              <p>
+                  But by far my biggest take away in this week’s materials are understanding and identifying the motives for a bad actor to 
+                  move forward in committing to what’s known as the APT kill chain.  This can be partially solved by reviewing the malware code,
+                   but also on how the malware is implemented.  I find the instructors example of a USB infection interesting, in that the log 
+                   created by the malware is only retrievable by the original USB which caused infection as a sign that it’s an internal attack. 
+              </p>
+              <p>
+                  There are 2 ways to analyze malware
+              </p>
+              <ul>
+                <li>Static – this means analyzing the code in the malware along with the strings found in the malware  </li>
+                <li>Behavior – understanding what the malware is attempting to do via it’s HTTP requests and process creation,
+                  modification, and deletion in the operating system</li>
+              </ul>
+              <p>
+                  In any case below are tools that anyone curious to reverse engineer a malware will need and why they need it: 
+              </p>
+              <ul>
+                <li>FakeNet – to monitor all TCP/IP traffic attempting to connect on various ports.  </li>
+                <li>Flypaper – to block all of the outgoing TCP/IP traffic </li>
+                <li>Process Monitor – monitors the processes executing on Windows and in specific, what is touching and what resources is the process using.  </li>
+                <li>Process Explorer – a useful to complete a string dump of the process </li>
+                <li>McAfee’s File Insight – a useful tool to attempt to reverse engineer what the source code is doing via assembly language, string dumps, and other plugins.  </li>
+                <li>IDA Pro – another product that will help you reverse engineer an executable </li>
+                <li>Command Prompt – having some basic knowledge of command prompt can help someone detect if the malware has scheduled new tasks, created files hidden to the user and more.  </li>
+              </ul>
+              <p>
+                Static Analysis
+              </p>
+              <p>
+                  Engineers use techniques like string analysis, binary analysis and source analysis as a means of static analysis.  In Lab 1, I performed a string analysis of the 
+                  evil.exe file by opening the file with McAfee’s File Insight tool.  As the image below shows, the executable had various interesting strings, including strings to 
+                  HTTP sites where the malware would download more than 1 executable.  
+              </p>
+              <img class="card-img-top" id="fileinsight1" src="images/fileinsightstringdump.jpeg">
+              <p>
+                  Binary tools like the one pictured below are also used to analyze the malware’s source code in assembly.  This helps determine what the malware is attempting 
+                  to do by checking what registry’s and driver’s it’s attempting to utilize in the code.  
+              </p>
+              <img class="card-img-top" id="binarytool" src="images/gennari_pharos_figure1_08282017.png">
+              <p>
+                  Engineer’s will need to use tools to monitor the malwares behavior within the operating system, identifying artifacts it leaves behind.  An example of such a tool 
+                  is FakeNet, or even Wireshark, that monitors the HTTP requests attempted by the malicious executable.  Below is an example of a malicious malware attempting to 
+                  download another executable, more than likely also malware.  
+              </p>
+              <img class="card-img-top" id="fakenetimage" src="images/fakenetimage.jpeg">
+              <p>
+                Conclusion
+              </p>
+              <p>
+                Malware analysis is similar to piecing together a puzzle.  It really does require thinking outside the box and reviewing multiple artifacts in order to understand 
+                the malwares payload and it's intentions.  This is not exclusive to just analyzing the malwares binary/source code, but also it's strings and 
+                behaviors, in particular within a network.  Malware analysis can be extensively but imperative in order to prevent your data from being at risk of exposure.  
+              </p>
+
+                  
+
+              
+              
+            </div>
+            <div class="card-footer text-muted">
+              Posted on January 15, 2018 by
+              <a href="https://github.com/saldanaj">Joaquin Saldana</a>
+            </div>
+          </div>
+
+        </div>
+
+
+
+
+        </div>
+
+      </div>
+      <!-- /.row -->
+
+    </div>
+    <!-- /.container -->
+
+    <!-- Footer -->
+    <footer class="py-5 bg-dark">
+      <div class="container">
+        
+        <!--
+        <p class="m-0 text-center text-white">Copyright &copy; Your Website 2017</p>
+        --> 
+        <p class="m-0 text-center text-white">Joaquin Saldana - OSU - CS373 Weekly Writeup</p>
+
+      </div>
+      <!-- /.container -->
+    </footer>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  </body>
+
+</html>
