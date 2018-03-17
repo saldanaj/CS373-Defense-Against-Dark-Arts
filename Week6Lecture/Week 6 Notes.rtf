@@ -1,0 +1,352 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1561\cocoasubrtf200
+{\fonttbl\f0\fswiss\fcharset0 Helvetica;}
+{\colortbl;\red255\green255\blue255;}
+{\*\expandedcolortbl;;}
+\margl1440\margr1440\vieww22680\viewh19880\viewkind0
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+
+\f0\fs24 \cf0 Week 6 Notes \
+\
+What is the port for UDP protocol, which is 17 - it\'92s the most random number \
+\
+Old idea, new exploit \
+\
+Protection Strategies \
+- Positive Policy (or more commonly known as white listing) \
+- Firewalls / security zones \
+- Defense in depth \
+- intrusion detection \
+- honeynets / intrusion deception \
+- qurantine \
+- reputation (also host-based) \
+\
+
+\b \
+\
+Positive Policy 
+\b0 \
+- white listing \
+- definition of what you exepct/allow to happen \
+- other things are suspicious and not permitted \
+- what is not supposed to be happening is subtractable \
+- easier for automating / make it easy for the firewall to analyze \
+- here is where the defender as the advantage since the defender knows what the network is for\
+- limits the attack surface - set of operations that your network is willing to respond to - i.e. knowing no one can do a SSH connection to my network by disabling the ports and making the attack surface smaller (less room to make mistakes) \
+- provides a hook for other trust mechanisms: identity, trust chaining \
+- all the class of unexpected things will be flagged but may not tell you what it is so it requires some research \
+- firewall vs threat mgmt - is looking for something that is not supposed to happen \
+- advantage is your defining a finite set \
+\
+
+\b Firewalls and Security Zones 
+\b0 \
+- most common implementation of policy is to define zones in the network with policy between the zones \
+- they divide the network into a section of security zones (these zones are commonly known as DMZ) \
+- Commonly used zones: internet, intranet, testing labs, extranet, corporate, data center, DMZ, user stations (DHCP pools)\
+- lots of different protocols we can define in the firewall \
+\
+look at the zones and policy \
+- corporate means the desktops and 9 to 5 people \
+- external access points are outsiders accessing your network \
+- external sites with trust can sit in the extranet - partner sites (using VPN), trusted clients (VPN also) \
+\
+The spreadsheet is fill in the slots and think of who belongs in which zones, and determine their policies \
+\
+\
+\
+
+\b Other Firewall Like Devices 
+\b0 \
+Other kinds of firewalls - \
+- Web Gateway - often defined as a proxy - makes 2 connections and bridges them together\
+there are web proxies - a web gateway we can see all of the web transactions and determine transactions that can be problematic for your network.  A firewall may block the entire webpage while the web page can still give you the page but parts of it are not rendered due to security \
+- Email Gateway - SMTP - its putting someone in the middle (think of the Symantec email we use as the gateway) - this gateway filters all of the mail, finds whats spam, throws it away and gives you the rest\
+\
+******* MAYBE THINK OF DIFFERENT WEB AND EMAIL GATEWAYS AS AN EXAMPLE OF MY RESEARCH *******\
+\
+\
+\
+\
+
+\b Principles in Protection \
+Defense in Depth \
+
+\b0 \
+layers of defense \
+firewall is what will stop you from coming inside the castle \
+intrusion protection system \
+(banks tend to have alternate data centers, in the event one data center is destroyed they can run on another one) \
+SIEM - mechanism for collecting log data from all different devices and correlating it together in one place and coming up w/ automated defenses and coming up w/ a situational awareness (security information and event management) \
+\
+****** FIND OUT MORE ABOUT THIS - SEEMS SIMILAR TO LOGRHYTHM **************\
+
+\b \
+
+\b0 one of the issues in a network is that you tend to use multiple vendors and each of the applications need to speak to each other to be able to act quickly\
+SIEM can connect to the firewall 
+\b \
+\
+\
+\
+\
+Intrusion Detection \
+\
+
+\b0 difference between firewall vs intrusion detection - what is policy vs threat detection \
+- IDS are looking for things you dont want to have happen while firewalls is looking for things you do want to happen \
+- is very good at catching threats that are well understood - because these are previously exploited attacks (their old attacks) - you still care for these old attacks because the vulnerability instances can still be present in various devices.  Also in case you forget to patch if the IDS finds it, it can still stop it \
+\
+Zero day attacks - IDS may not be able to detect these vulnerabilities
+\b \
+\
+
+\b0 - intrusion detection (IDS/IPS) - use signatures/anomally detection to detect attacks \
+- extra info to use: OS type, protocol fields, known exploit tools, packet techniques \
+\
+Advantages: \
+- catch known attacks quickly and efficiently \
+- good information on attacks \
+- virtual patching \
+\
+Disadvantage: \
+- zero day attacks (arms race phenomenon) \
+- false positives
+\b \
+\
+\
+\
+\
+Honeynets / Intrusion Deception 
+\b0 \
+idea: catch the flies in honey (slow the attacker down) \
+Attackers dont know the structure of the network under attack \
+we can divise a phony network to waste their time or deceive them (honeypots) a\
+use unassigned internal address \
+apply sucker algorithms to slow down the attacker \
+create phony content for the attacker to download or look at \
+\
+problems: \
+- requires a lot of configuration per site, less common than firewalls, etc. \
+- some vendors provide solutions \
+- have to put alot of very specific information to have the honeypot work and can be a challenge\
+\
+\
+
+\b Quarantine
+\b0 \
+\
+- Concept: place hosts that misbehave into a quarantine area where they cant \'93infect\'94 anyone else \
+\
+- Commonly deployed on network entry: \
+a) 801.11x switch fabrics w/ Network Admission Control products (not very common) \
+b) airport wireless logins (very common) \
+c) software defined networks (SDN) - new concept, getting bigger fast \
+\
+- Firewalls often implement a \'93blacklisting\'94 mechanism, sort of like a quarantine \
+a) behavior indicates the machine is infect ed or user doing something wrong (policy violations, IPS signatures, reputation) \
+b) typically, black list the remote host that brought about the infection \
+c) a limited quarantine works better for local hosts when possible, because users dont like to be blacklisted (remember, the user probably didn\'92t realize they were doing anything wrong)\
+\
+\
+
+\b Reputation 
+\b0  \
+\
+- big data solution \
+- this is newer kind of defense \
+\
+- collect a list of bad and good things, serve the list out from The Cloud \
+a) IP addresses that were associated w/ malware or botnets \
+b) ip addresses of spammers \
+c) URLs that reference pages w/ scriptingattacks, drive by downloads, etc. \
+d) URL classification and categorization \
+e) files that come from known program releases \
+f) files that come from known viruses, or tend to be included in viruses \
+\
+- McAfee GTI is a prominent example \
+- issues: \
+a) multi-function hosts \
+b) stale data \
+c) zero day susceptibility \
+\
+\
+Network Security Technologies \
+Detection vs Protection \
+\
+Detection \
+- policy \
+- passive capture \
+- packet filtering \
+- deep inspection \
+- crypto inspection (SSL inspection) \
+- proxy / gateway \
+- vulnerability scanning \
+- intrusion detection \
+- static analysis \
+- dynamic analysis \
+- security information and event management (SIEM)\
+- reputation / cloud data analysis \
+\
+Protection \
+- policy \
+- identity / trust \
+- blocking traffic \
+- modifying traffic to remove suspicious parts (Man In The Middle) \
+- translation (NAT, Load balancing, reverse proxy, URL mapping) \
+- routing \
+- encryption \
+\
+\
+Products\
+- firewall - whats in the firewalls are policy, passive capture, packet filtering, policy, blocking traffic, modifying traffic to remove suspicious parts, translation, routing, deep inspection \
+- IPS \
+- next gen firewall - add IDS, crypto inspection, user based policy into next gen firewall and other features\
+- next gen IPS \
+- web gateway \
+- email gateway - proxy/gateway, intrusion detection, static analysis, reputation/cloud data analysis, email gateway can check if an email should be encrypted or decrypt emails as well, and other things\
+- data loss protection \
+- identity mgmt / authentication \
+- advanced threat detection (zero day protection) \
+\
+\
+\
+
+\b THREATS: MITM - PERSON IN THE MIDDLE 
+\b0 \
+threats across the network stack and defenses against them \
+\
+A <\'97> B and M is in the middle, intercepting and (possibly) changing messages\
+\
+- technique used for both protection and attacking, it can be used for good and evil \
+- for good: it can be used to monitor/inspect the packets to determine if anything sensitive or dangerous is being exchanged \
+- for bad: can be used to change the packets for the benefit the attacker, they are in control of the situation \
+\
+
+\b MITM Examples (black hat) ********* FIND OUT MORE ABOUT THIS ********************
+\b0 \
+\
+ARP Poisoning \
+- flood network w/ ARP responses \
+- ARP works by broadcasting the question and relying on the person who has the answer to return the answer, but you can easily spoof IP address, and when the question for the IP address to the MAC comes through, i can answer that question first and then all of the network traffic is routed through between the user and the server \
+- typically: fool hosts into thinking that the internet gateway is at your MAC address instead of the real one \
+\
+TCP Hijacking \
+- inject, delete or change data into a TCP stream (and fix up packets so no one notices) \
+- example: HTTp user logs in, then you change a transaction in a HTTP stream, add a transaction to HTTP (i.e. you request to withdraw $100, attacker generates a withdrawal for $1 and a check for $99 to his henchman) \
+- Example: SSL renegotiate attack (advanced topic) ******* FIND OUT MORE ABOUT THIS ****************\
+1) MITM intercepts initial SSL handshake request (client hello) \
+2) MITM opens SSL handshake to destination and sends initial request, followed by a renegotiation request \
+3) MITM let\'92s user request proceed as renegotiation \
+\
+
+\b MITM Example (GOOD GUY)
+\b0 \
+\
+Terminating TCP Proxy \
+1) terminate TCP connections on one side, create a completely new connection on the other side \
+2) rewrite all headers so that an attacker cant transmit protocol attacks through the firewall.  Repackage TCP packets to make efficient use of packet size, remove overlapping segments, retransmissions \
+\
+HTTP Proxy \
+1) intercept all HTTP traffic \
+2) verify destination against list of \'93dangerous\'94 hosts \
+3) look for strangely encoded URLs that uer\'92s normally wouldnt\'92 use (e.g. ../ as %2e%2e%2f, or other obfuscated URLs) \
+4) detect and remove malicious Javascript or EXE files from remote sites from response \
+\
+\
+Mail Proxy \
+1) prevent attackers from sending EXE files \
+2) look for sensitive data being exfiltrated in emails \
+\
+SSL MITM \
+1) intercept SSL, decrypt re-encrypt\
+2) in front of a server, by sharing the private key \
+3) in front of a client, by spoofing the certificate \
+4) other creative ways to spoof the certificate \
+5) use DNS MITM to fool the client into believing the certificate is valid \
+\
+\
+
+\b Detection of (TCP) MITM 
+\b0 \
+- the trick is to use an HMAC (crypto hash, pseudo random function) such as (SHA-1), SHA-256, SHA-3\
+- if each packet has a hash on it, the receiver can detect if the MITM changes the packet \
+HMAC - machine access code - it\'92s a one way function that takes a large number of bits and generates a small number of bits, it\'92s practically impossible to invert it (collisions)  \
+\
+Shared Secret - A.K.A. public key cryptograph, RSA, etc. ****FIND OUT MORE ABOUT THIS ********\
+\
+\
+==========================================\
+\
+LAB 2 \
+-starter script are in python and perl \
+- starter script goes through all the packets \
+- see slide 41 to see where our code will be put in the python script \
+- each line of the .csv files represent\'92s one packet \
+\
+protocols numbers \
+- look to see what\'92s being used more and used less \
+6 = TCP \
+17 = UDP \
+\
+\
+\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf0 ==========================================\
+\pard\tx720\tx1440\tx2160\tx2880\tx3600\tx4320\tx5040\tx5760\tx6480\tx7200\tx7920\tx8640\pardirnatural\partightenfactor0
+\cf0 \
+\
+
+\b Threats: Reconnaissance A.K.A Recon 
+\b0 \
+\
+2 kinds of recon \
+\
+1. Active - attacker wants to attack vulnerable machines on a network \
+- attacker needs to find addresses for services that can be attacked \
+\
+2. Passive - attacker is able to see data on the network (wiring closet, ISP) \
+- attacker wants to learn about people \
+\
+
+\b Active Reconnaissance 
+\b0 \
+- basic tool is scanning - trying to connect to many hosts and services (ports) \
+- NMAP is a common tool \
+- goal is to get the IP address to UDP/TCP port of a service you can attack \
+- attackers can do a \'93slow\'94 scan <- hard to find without a SIEM and it\'92s done over a long period of time \
+\
+- see slide 51 \
+\
+\
+Passive Reconnaissance \
+- keep in mind this is generally illegal \
+- getting the data \
+- \'93envelope\'94 data \
+- content \
+\
+Using wireshark - header analysis \
+\
+\
+\
+\
+\
+\
+
+\b \
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+\
+}

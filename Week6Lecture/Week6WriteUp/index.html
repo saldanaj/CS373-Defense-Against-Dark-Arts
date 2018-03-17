@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Joaquin Saldana - CS373 Weekly Writeup</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="css/blog-home.css" rel="stylesheet">
+
+  </head>
+
+  <body>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="#">Joaquin Saldana / Winter 2018</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+
+        <!-- 
+
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="#">Home
+                <span class="sr-only">(current)</span>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Services</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Contact</a>
+            </li>
+          </ul>
+        </div>
+
+      -->
+
+
+      </div>
+    </nav>
+
+    <!-- Page Content -->
+    <div class="container">
+
+      <div class="row">
+
+        <!-- Blog Entries Column -->
+        <div class="col-md-8">
+
+          <h1 class="my-4">CS373 Weekly Writeups
+            <small></small>
+          </h1>
+
+          <!-- Blog Post -->
+
+
+    <!-- WEEK 6 WRITEUP --> 
+
+    <div class="card mb-4">
+
+
+            <!--
+            <img class="card-img-top" src="http://placehold.it/750x300" alt="Card image cap">
+            --> 
+            <img class="card-img-top" src="images/Week6/Heartbleed-bug-major-openssl-sequrity-leak-featured-670x300.png" alt="">
+            <div class="card-body">
+              <h2 class="card-title">Week 6</h2>
+              <p class="card-text">
+				This week we discussed multiple ways to defend and attack a network.  In specific, we discussed the following protection strategies: 
+              </p>
+              <ul>
+                <li>Having a policy for both positive and negative movement within the network.  This includes applications, HTTP traffic and more </li>
+				<li>Having a firewall designated as the network's DMZ.  Network segmentation within the DMZ/firewall is critical.  </li>
+				<li>Have a layered defense.  This includes not only having a firewall, but having a intrusion detection system, a security information and event management system (i.e. LogRythm) and ensuring that these system can talk to each other via functioning API's.  This is important since most of these systems may come from different applications and vendors.  </li>
+				<li>Intrusion detection which is the searching and monitoring for things you DON'T want to happen on your network.  However, this does have its limitation.  In example, does may not help you in your efforts to detect attacks involving zero day vulnerabilities.  </li>
+				<li>Quarantine hosts that may be infected so the infection does not spread across the network to other hosts.  This could also include a blacklist component</li>
+              </ul>
+              <p>Other examples of strategies include honeypots/honeynet's and reputation.  </p>
+              <p>
+              	Other topics also discussed in the lecture were attacks against networks.  One in particular I found interesting was Man In the Middle Attacks (MITM).  
+              </p>
+              <img class="card-img-top" id="rootkitseverity" src="images/Week6/man-in-the-middle-mitm.jpg">
+              <p>
+              	Having worked as a fraud investigator, I investigated various cases of fraud in which bank users/clients were victims of online banking and wire fraud.  Most of which was perpetrated via MITM attacks.  This mounted to large losses for the financial institutions who paid out such claims to the clients who losses were not reimbursed by the same banks.  
+              </p>
+              <p>
+              	In our investigations, our immediate source for review was the online banking session logs.  Most often than not, we would find various session log in and activity from multiple IP addresses in concurrency with the legitimate user's activity (i.e. while the bank client was performing a balance inquiry via an IP address in Venezuela, another user was performing a wire transfer request via an IP address in Russia, both using the same session ID).  These investigations proved frustrating but I was interested how these attacks could be carried out against sophisticated online banking platforms.  Most often than not, the client's devices were unpatched and poorly secured.  
+              </p>
+              <p>
+              	One part of the lecture that interested me regarding man in the middle attacks was SSL renegotiation attacks. Renegotiation is required when no client-server authentication is initially required while making an SSL connection but is required later.  Thus instead of dropping and creating a new SSL connection, renegotiation adds authentication details to the current connection.  
+              </p>
+              <p>
+              	However renegotiation is vulnerable to attacks.  Two worries are: 
+              </p>
+               <ol>
+                <li>A man in the middle attacker can inject data into an HTTPS session and execute requests on behalf of the victim  </li>
+				<li>Denial of Service (DoS), by establishing a secure SSL connection requires more processing power on the server, an attacker can exploit this processing power property with renegotiation to trigger hundreds of handshakes in the same TCP connection.    </li>
+              </ol>
+              <p>
+              	There are ways to mitigate these threats.  Some are: 
+              </p>
+              <ul>
+                <li>Renegotiation is not required by the majority of the sites.  Disable SSL renegotiation support on the server </li>
+				<li>Limit the number of SSL handshakes, or upgrade server resources by adding an SSL accelerator </li>
+              </ul>
+              <p>
+              	Below is a link to a proof of concept for TLS renegotiation and its vulnerability in which an attacker can perform a DoS attack.  
+              </p>
+              <p>
+              	<a href="https://www.ietf.org/mail-archive/web/tls/current/msg07553.html">Internet Engineering Task Force - SSL Renegotiation DoS</a>
+              </p>
+
+              
+            </div>
+            <div class="card-footer text-muted">
+              Posted on February 20, 2018 by
+              <a href="https://github.com/saldanaj">Joaquin Saldana</a>
+            </div>
+        </div>
+
+
+
+
+
+    <!-- WEEK 5 WRITEUP --> 
+
+    <div class="card mb-4">
+
+
+            <!--
+            <img class="card-img-top" src="http://placehold.it/750x300" alt="Card image cap">
+            --> 
+            <img class="card-img-top" src="images/Week5/rootkit-623x409.png" alt="">
+            <div class="card-body">
+              <h2 class="card-title">Week 5</h2>
+              <p class="card-text">
+              	A rootkit is one of the most difficult types of malware to find and remove.  Once a rootkit installs itself on your computer, it will boot up at the same time as your PC.  There are various forms of rootkits which different degrees of severity.  Below is an illustration of the layered differences in the severity: 
+              </p>
+              <p>
+              	<img class="card-img-top" id="rootkitseverity" src="images/Week5/rootkitseverity.jpeg">
+              </p>
+              <p>
+              	In week 5 lecture, we discussed about the most severe rootkits which are the kernel rootkits.  This type of rootkit is designed to function at the level of the operating system itself.  This means the rootkit can effectively add new code to the OS, or even delete and replace OS code.  
+              </p>
+              <p>
+              	Rootkits have a tendency to target important structures within the Windows operating system for the purposes of stealth and persistence.  This is also known as hooking.  Below are some examples: 
+              </p>
+              <ul>
+                <li>System Service Descriptor Table (SSDT) - is an internal dispatch table within Microsoft Windows.  This is a structure that is normally "hooked" by a rootkit.  The SSDT table holds the pointer to kernel functions, which are used upon system call invocation.   </li>
+                <li>Interrupt Descriptor Table (IDT) - is used by the processor to determine the correct response to interrupts and exceptions.  Some Windows programs hook calls to the IDT.  This involves writing a kernel mode driver that intercepts calls to the IDT and adds in it's own processing.  </li>
+              </ul>
+              <p>
+              	Below is a simple example of how a rootkit can manipulate calls to the IDT.  
+              </p>
+              <img class="card-img-top" id="idtattack1" src="images/Week5/idtattack1.jpeg">
+              <img class="card-img-top" id="idtattack2" src="images/Week5/idtattack2.jpeg">
+              <img class="card-img-top" id="idtattack3" src="images/Week5/idtattack3.jpeg">
+              <img class="card-img-top" id="idtattack4" src="images/Week5/idtattack4.jpeg">
+              <img class="card-img-top" id="idtattack5" src="images/Week5/idtattack5.jpeg">
+              <img class="card-img-top" id="idtattack6" src="images/Week5/idtattack6.jpeg">
+              <p>
+              	Furthermore, below is an article of a rootkit attack involving the Windows SSDT.  
+              </p>
+              <p>
+              	<a href="http://resources.infosecinstitute.com/hooking-system-service-dispatch-table-ssdt/#gref">InfoSec Article - SSDT Hooking</a>
+              </p>
+              <p>
+              	Most recently, bad actors have started to migrate towards to digital certificates as a means to successfully installing malware on a victims machine.  A certificate is issued by an organization recognized as "trusted' by the parties involved and is used ordinarily for operations of public key cryptography.  
+              </p>
+              <p>
+              	However, digital certificates can be used abused to conduct illicit activities like cyber espionage, sabotage or aid in the dissemination of malware.  This is a highly valuable asset for actors since it can grant their application low level access to the victims machine. 
+              </p>
+              
+            </div>
+            <div class="card-footer text-muted">
+              Posted on February 13, 2018 by
+              <a href="https://github.com/saldanaj">Joaquin Saldana</a>
+            </div>
+        </div>
+
+
+
+
+
+
+    <!-- WEEK 4 WRITEUP --> 
+
+    <div class="card mb-4">
+
+
+            <!--
+            <img class="card-img-top" src="http://placehold.it/750x300" alt="Card image cap">
+            --> 
+            <img class="card-img-top" src="images/Week4/gra.png" alt="">
+            <div class="card-body">
+              <h2 class="card-title">Week 4</h2>
+              <p class="card-text">
+                 In Week 4, the lectures centered around the topic of vulnerabilities and exploitation.  In specific we studied the more common methods in which attackers use to gain access inside a network defensive perimeter, and that's the internet browser.  
+              </p>
+              <p>
+              	Nowadays, most business have strong DMZ and firewalls to protect the business from attacks outside the perimeter, but as we've learned in this course, a business is only as strong as its weakest link.  In modern times, attackers employ social engineering tactics to gain access inside a network.  One strategy that employs social engineering along with sophisticated attacks is having the user visit a page, have the page load JavaScript code that will take advantage of a browser function or vulnerability.  
+              </p>
+              <p>
+              	This week we discussed two ways we can manipulate memory via the stack through the browser. 
+              </p>
+              <ul>
+                <li>Stack Smashing / Memory Corruption</li>
+				<li>Use After Free Vulnerabilities </li>
+              </ul>
+              <p>
+              	Stack Smashing
+              </p>
+              <p>
+              	In order to corrupt the stack, we need to a few things as per the lectures: 
+              </p>
+              <ol>
+                <li>Perform a crash triage </li>
+				<li>Determine the return address offset  </li>
+				<li>Position our shellcode </li>
+				<li>Find the address of our shell code so it can "live" on the stack</li>
+              </ol>
+              <p>
+              	A stack smash occurs when the stack buffer is filled with data supplied from an untrusted user and the data is corrupts the stack and malicious executable code is injected into the stack.  The code is executed when the stack attempts to perform a return to a function via the return address on EIP, but the attacker uses a NOP slide to position EIP to their malicious code on the stack. 
+              </p>
+              <p>
+              	For reference, as mentioned in the lectures, a NOP slide is a sequence of no operations meant to "slide" the CPU's instruction pointer to a desired destination whenever the program branches to a memory address anywhere on the slide. 
+              </p>
+              <img class="card-img-top" id="stacksmash" src="images/Week4/stack5.gif">
+              <p>
+              	Operating systems have now implemented various protection schemes to protect against a stack smash.  In my research I found these protections can be classified into three categories: 
+              </p>
+           	  <ul>
+                <li>Detect the stack buffer overflow has occurred and prevent redirection of EIP to the malicious code </li>
+				<li>Prevent the execution of malicious code from the stack without directly detecting the stack buffer overflow</li>
+				<li>Randomize the memory space such that finding executable code becomes unreliable (i.e. Address Space Layout Randomization / ASLR)</li>
+              </ul>
+              <p>
+              	Use-After-Free 
+              </p>
+              <p>
+              	Use after free is another method used to exploit memory via the browser.  This vulnerability is triggered when an object in memory is freed and then reference later by the application, but the attacker has control of the freed object/memory.  In order for this the following conditions must be present for the attacker to exploit: 
+              </p>
+              <ol>
+              	<li>Load shellcode in memory at a predictable address </li>
+              	<li>Force an object to be freed and then overwrite it with one that includes a virtual table pointer (VPTR) linked to a fake vtable (virtual table) pointing to the shellcode loaded in step 1 </li>
+              	<li>Trigger a vulnerability in the browser to reuse the freed object (which now has malicious pointers inserted by the attacker) and redirect execution flow to the shellcode loaded in memory </li>
+              </ol>
+              <p>
+              	Below is a diagram showing the flow of a use-after-free exploit: 
+              </p>
+              <img class="card-img-top" id="useafterfree" src="images/Week4/image662.jpg">
+              <p>
+              	Modern browsers, like Microsoft's Edge in Windows 10, have functions in place to mitigate use after free exploits.  Recently, Microsoft introduced MemGC which prevents the freeing of memory chunks if references to them are found.  MemGC checks the registers and the stack for chunk references, and in addition, scans the contents of MemGC managed chunks for references.  
+              </p>
+              <p>
+              	Below is flowchart of how MemGC works: 
+              </p>
+              <img class="card-img-top" id="memgc" src="images/Week4/memgc.png">
+              <p>
+              	For more information you can click on the link below.  It's an article from LinkedIn on a BlackHat session in which the presenter discusses MemGC.  
+              </p>
+              <p><a href="https://www.linkedin.com/pulse/memgc-use-after-free-exploit-mitigation-edge-ie-10-mayur-agnihotri">MemGC: Use-After-Free Exploit Mitigation In Edge and IE In Windows 10</a>
+              </p>
+              <p>
+              	Tools
+              </p>
+              <p>
+              	Also, in the lecture we discussed how WinDbg is a great tool for establishing breakpoints in applications and examining the applications assembly code.  WinDbg is also extremely useful when attempting to review  the stack and heap starting points, strings in the applications, and register contents, including the instruction pointer.  
+              </p>
+              <p>
+              	WinDbg can also be used to install breakpoints in running process/applications. Allowing a user to observe behavior incrementally in real time.  Below is an article discussing debugging malware with WinDbg
+              </p>
+              <p><a href="https://www.ixiacom.com/company/blog/debugging-malware-windbg">Debugging Malware with WinDbg</a>
+              </p>
+              
+            </div>
+            <div class="card-footer text-muted">
+              Posted on February 6, 2018 by
+              <a href="https://github.com/saldanaj">Joaquin Saldana</a>
+            </div>
+        </div>
+
+
+
+
+
+
+
+    <!-- WEEK 3 WRITEUP --> 
+
+    <div class="card mb-4">
+
+
+            <!--
+            <img class="card-img-top" src="http://placehold.it/750x300" alt="Card image cap">
+            --> 
+            <img class="card-img-top" src="images/Week3/the-future-of-automated-malware-generation-48-638.jpg" alt="">
+            <div class="card-body">
+              <h2 class="card-title">Week 3</h2>
+              <p class="card-text">
+                  The last weeks we've talked about malware dissection and offense, but this week we discussed malware defense.  There are various ways to protect your network infrastructure from malware defense, but in my research, I found nothing is more effective than network segmentation and virtualization.  By layering your defense, you make it difficult for malware to penetrate your network infrastructure and in the event they succeed, make it difficult in scanning and exporting valuable data.   
+              </p>
+              <p>
+                As discussed in the lecture, there are static and behavioral methodologies in detecting potential device compromises.  Some examples include: 
+              </p>
+              <ul>
+                <li>Network firewalls</li>
+                <li>Install antivirus on hosts</li>
+                <li>Access control policy </li>
+                <li>Group policy for particular divisions of a business</li>
+                <li>Host agents that report on suspicious files and behavior anomalies</li>
+              </ul>
+              <p>
+                Furthermore, there are tools simple enough to aid your efforts for malware defense.  In the lecture, we discussed Yara and Cuckoo.  Tools simple enough and open source that allow it to be used by large to small businesses and personal consumers.  These applications allow you to create rules where you define certain information to find when scanning files and directories.  
+              </p>
+              <p>
+                There are other open source projects that involve the monitoring of host machine behaviors.  One example is the Open Source HIDS Security or OSSEC.  Per the documentation on OSSEC GitHub's page, OSSEC is actively monitoring all aspects of Unix system activity with file integrity monitoring. Log monitoring, rootcheck, and process monitoring.  A commercial counterpart to this project is Carbon Black.  
+              </p>
+              <p>
+                Furthermore, through virtualization, IT professionals can now deploy virtualized app and desktop solutions for applications considered high risk, specifically applications with access to the external internet (i.e. web browsers).  By hosting applications on VDI's, if a user visits a site with malware injection the malware only affects the virtual system and is denied access to the host or server hosting the virtual session.  This makes it easy to quarantine and remove the infected virtualization and restore a recent backup.  
+              </p>
+
+
+              
+              
+            </div>
+            <div class="card-footer text-muted">
+              Posted on January 30, 2018 by
+              <a href="https://github.com/saldanaj">Joaquin Saldana</a>
+            </div>
+        </div>
+
+
+
+
+
+		<!-- WEEK 2 WRITEUP --> 
+
+		<div class="card mb-4">
+
+            <!--
+            <img class="card-img-top" src="http://placehold.it/750x300" alt="Card image cap">
+            --> 
+            <img class="card-img-top" src="images/Week2/remove-malware-options.jpg" alt="malware_picture">
+            <div class="card-body">
+              <h2 class="card-title">Week 2</h2>
+              <p class="card-text">
+                  This week there were several topics that struck a note with me.  The lectures had a strong focus on standard procedures for obtaining computer forensic evidence.  We also discussed the following: 
+              </p>
+              <ul>
+              	<li>Challenges in obtaining forensic data from a standard/conventional hard drive vs an SSD hard drive </li>
+              	<li>The order of volatility with data in a computer </li>
+              	<li>Important files to capture when performing forensics on volatile data in a Windows environment</li>
+              	<li>What data we expect to retrieve from these files that are considered important and volatile</li>
+              	<li>Windows Registry and the critical data that can be found in the files, and a good tool to use to review these files, RegEdit </li>
+              </ul>
+              <p>
+              	The procedures for obtaining forensic evidence on a computer is not much different when obtaining evidence from other crimes.  As an investigator you must do the following: 
+              </p>
+              <ul>
+              	<li>Create a journal, with dates and times, of your actions and observations </li>
+              	<li>Gather evidence in a secure environment, and with a sense of urgency, capture any volatile data first while keeping a light footprint on the machine in question </li>
+              	<li>Establish a chain of custody with the evidence </li>
+              	<li>Note all checksum hashes of the data collected to ensure it can be compared at a later time, further adding credence to the integrity of the data </li>
+              	<li>Make backup copies of the information retrieved to safeguard against loss, theft, or destruction of the valuable information </li>
+              	<li>When running forensics on the machine, search for deleted/erased files for evidence</li>
+              	<li>Ensure the evidence is stored a secure location where only individuals with clearance can access the data </li>
+              </ul>
+              <p>Doing a quick Google search I found various publications, both from the public and private sectors, on how to handle malware evidence.  You may click on the link for find this information: 
+              </p>
+              <p><a href="https://www.google.com/search?q=standard+procedures+for+malware+forensics&oq=standard+procedures+for+malware+forensics&aqs=chrome..69i57.12309j0j7&sourceid=chrome&ie=UTF-8">Google Search - Standard Procedures for Malware Forensics</a>
+              </p>
+              <p>
+              	Another thing I was completely unware of was the challenges in collecting forensics evidence from SSD drives.  As explained by forensicmag.com in this article <a href="https://www.forensicmag.com/article/2013/05/forensic-insight-solid-state-drives">Forensic Mag - Forensic Insight into Solid State Drives</a>, SSD's require you to  write data in blocks.  This is always true.  Every time we want to write new data to the SSD, it takes a copy of that information, clears a block hence clearing the bits in that block, and writes the data.  The same is true if we modify data that already exists in a block.  Per the article, the best example to illustrate this is a Etch-A-Sketch model: 
+              </p>
+              <img class="card-img-top" id="ssd1" src="images/Week2/etch-sketch1.jpeg">
+              <p></p>
+              <img class="card-img-top" id="ssd2" src="images/Week2/etch-sketch2.jpeg">
+              <p></p>
+              <p>
+              	In my research, most malware investigators have yet to solve this problem with SSD's.  However if you wish to find more information below is a link to a Google search with various articles and white papers: 
+              </p>
+
+              <p><a href="https://www.google.com/search?q=forensics+with+hard+disk+drive+vs+ssd&oq=forensics+with+hard+disk+drive+vs+ssd+&aqs=chrome..69i57.15357j1j7&sourceid=chrome&ie=UTF-8">Google Search - Forensics with hard disk vs SSD</a>
+              </p>
+              <p>
+              	Artifacts are objects or areas within a computer system that hold important information relevant to the activities performed on the computer by the user.  Below is a table of files, and their locations, that are critical to malware forensics: 
+              </p>
+              <img class="card-img-top" id="criticalfiles" src="images/Week2/criticalfiles.jpeg">
+              <p>
+              	In particular, the Registry can contain incredibly valuable information for a forensic investigator.  It is a hierarchical database that contains the default and user-defined setting in a Windows system.  It serves a repo, that monitors and records the activities that a user performs on a system in the form of registry entries.  This includes programs installed and uninstalled, USB devices connected, most recently accessed files, IP addresses and more.  Most of this can be viewed with RegEdit. 
+              </p>
+              <img class="card-img-top" id="registryedit" src="images/Week2/regedit.png">
+              <p>
+              	Another key take away for the week is the order of volatility for data.  This is imperative for all malware investigators since it dictates what analysis you'll be performing first on a suspect machine.  
+              </p>
+              <img class="card-img-top" id="volatilitychart" src="images/Week2/order_of_volatility.png">
+              <p>
+              	Lastly, I searched for cases that have been imperative in establishing case law for computer crimes, particularly with the presentment of digital artifacts as evidence.  Below are some interesting case law and rules regarding digital evidence: 
+              </p>
+              <p><a href="https://en.wikipedia.org/wiki/Digital_evidence">Wikipedia - Digital Evidence</a></p>
+              <img class="card-img-top" id="computecrimeslaw" src="images/Week2/computercrimescaselaw.jpeg">
+              
+              
+            </div>
+            <div class="card-footer text-muted">
+              Posted on January 22, 2018 by
+              <a href="https://github.com/saldanaj">Joaquin Saldana</a>
+            </div>
+      	</div>
+
+
+
+
+
+		<!-- WEEK 1 WRITEUP --> 
+          <div class="card mb-4">
+
+            <!--
+            <img class="card-img-top" src="http://placehold.it/750x300" alt="Card image cap">
+            --> 
+            <img class="card-img-top" src="images/meltdown-spectre-100745817-large.jpg" alt="Specture and Meltdown Image">
+            <div class="card-body">
+              <h2 class="card-title">Week 1</h2>
+              <p class="card-text">
+                  In the wake of the largely publicized disclosures of the Meltdown and, more serious, Spectre vulnerabilities, 
+                  it’s more important than ever for the common user to be educated on security.  As a student of computer science, 
+                  I feel it’s more important than ever to understand how a threat is detected, prevented, and analyzed.  
+
+              </p>
+              <p>
+                  Also important is understanding the bad actor and their intentions.  This week we covered the basics of malware.  This includes: 
+              </p>
+              <ul>
+                <li>Understanding the malware industry, past to present </li>
+                <li>Different variations of malware.  This includes viruses, adware, spyware, worms, ransomware and more.  </li>
+                <li>Infection vectors</li>
+                <li>Tools used by engineers to reverse engineer and analyze the malware statically and behaviorally.  </li>
+              </ul>
+              <p>
+                  But by far my biggest take away in this week’s materials are understanding and identifying the motives for a bad actor to 
+                  move forward in committing to what’s known as the APT kill chain.  This can be partially solved by reviewing the malware code,
+                   but also on how the malware is implemented.  I find the instructors example of a USB infection interesting, in that the log 
+                   created by the malware is only retrievable by the original USB which caused infection as a sign that it’s an internal attack. 
+              </p>
+              <p>
+                  There are 2 ways to analyze malware
+              </p>
+              <ul>
+                <li>Static – this means analyzing the code in the malware along with the strings found in the malware  </li>
+                <li>Behavior – understanding what the malware is attempting to do via it’s HTTP requests and process creation,
+                  modification, and deletion in the operating system</li>
+              </ul>
+              <p>
+                  In any case below are tools that anyone curious to reverse engineer a malware will need and why they need it: 
+              </p>
+              <ul>
+                <li>FakeNet – to monitor all TCP/IP traffic attempting to connect on various ports.  </li>
+                <li>Flypaper – to block all of the outgoing TCP/IP traffic </li>
+                <li>Process Monitor – monitors the processes executing on Windows and in specific, what is touching and what resources is the process using.  </li>
+                <li>Process Explorer – a useful to complete a string dump of the process </li>
+                <li>McAfee’s File Insight – a useful tool to attempt to reverse engineer what the source code is doing via assembly language, string dumps, and other plugins.  </li>
+                <li>IDA Pro – another product that will help you reverse engineer an executable </li>
+                <li>Command Prompt – having some basic knowledge of command prompt can help someone detect if the malware has scheduled new tasks, created files hidden to the user and more.  </li>
+              </ul>
+              <p>
+                Static Analysis
+              </p>
+              <p>
+                  Engineers use techniques like string analysis, binary analysis and source analysis as a means of static analysis.  In Lab 1, I performed a string analysis of the 
+                  evil.exe file by opening the file with McAfee’s File Insight tool.  As the image below shows, the executable had various interesting strings, including strings to 
+                  HTTP sites where the malware would download more than 1 executable.  
+              </p>
+              <img class="card-img-top" id="fileinsight1" src="images/fileinsightstringdump.jpeg">
+              <p>
+                  Binary tools like the one pictured below are also used to analyze the malware’s source code in assembly.  This helps determine what the malware is attempting 
+                  to do by checking what registry’s and driver’s it’s attempting to utilize in the code.  
+              </p>
+              <img class="card-img-top" id="binarytool" src="images/gennari_pharos_figure1_08282017.png">
+              <p>
+                  Engineer’s will need to use tools to monitor the malwares behavior within the operating system, identifying artifacts it leaves behind.  An example of such a tool 
+                  is FakeNet, or even Wireshark, that monitors the HTTP requests attempted by the malicious executable.  Below is an example of a malicious malware attempting to 
+                  download another executable, more than likely also malware.  
+              </p>
+              <img class="card-img-top" id="fakenetimage" src="images/fakenetimage.jpeg">
+              <p>
+                Conclusion
+              </p>
+              <p>
+                Malware analysis is similar to piecing together a puzzle.  It really does require thinking outside the box and reviewing multiple artifacts in order to understand 
+                the malwares payload and it's intentions.  This is not exclusive to just analyzing the malwares binary/source code, but also it's strings and 
+                behaviors, in particular within a network.  Malware analysis can be extensively but imperative in order to prevent your data from being at risk of exposure.  
+              </p>
+
+                  
+
+              
+              
+            </div>
+            <div class="card-footer text-muted">
+              Posted on January 15, 2018 by
+              <a href="https://github.com/saldanaj">Joaquin Saldana</a>
+            </div>
+          </div>
+
+        </div>
+
+
+
+
+        </div>
+
+      </div>
+      <!-- /.row -->
+
+    </div>
+    <!-- /.container -->
+
+    <!-- Footer -->
+    <footer class="py-5 bg-dark">
+      <div class="container">
+        
+        <!--
+        <p class="m-0 text-center text-white">Copyright &copy; Your Website 2017</p>
+        --> 
+        <p class="m-0 text-center text-white">Joaquin Saldana - OSU - CS373 Weekly Writeup</p>
+
+      </div>
+      <!-- /.container -->
+    </footer>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+  </body>
+
+</html>
